@@ -18,7 +18,8 @@
     {
       "resources": [
         "sidebar.css",
-        "showdown.min.js"
+        "showdown.min.js",
+        "Readability.js"
       ],
       "matches": [
         "<all_urls>"

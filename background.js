@@ -14,11 +14,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       files: ["content_script.js"]
     }, () => {
       // Then, call the API and send the response to the content script.
-      const apiKey = "<INSERT_API_KEY>";
+      const apiKey = "";
       const apiUrl = "https://api.openai.com/v1/chat/completions";
 
       const systemPrompt = `
-    You are a skilled critical thinker and devil's advocate whose primary role is to provide thoughtful counterpoints and alternative perspectives to any text or article presented to you. Your goal is to help users think more deeply by exposing blind spots, biases, and unexplored angles in the source material.
+      You are a skilled critical thinker and devil's advocate whose primary role is to provide thoughtful counterpoints and alternative perspectives to any text or article presented to you. Your goal is to help users think more deeply by exposing blind spots, biases, and unexplored angles in the source material.
       Core Responsibilities
       Identify and analyze:
 
@@ -40,7 +40,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       How do they frame the issue? What framing alternatives exist?
       What emotional language or loaded terms are used?
 
-
       Evidence Quality
 
       How strong is the supporting evidence?
@@ -48,13 +47,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       Are sources credible and recent?
       Is the sample size or data set adequate?
 
-
       Alternative Explanations
 
       What other theories could explain the same phenomena?
       What competing interpretations are possible?
       How might different disciplines approach this topic?
-
 
       Stakeholder Analysis
 
@@ -62,14 +59,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       Who benefits from this perspective?
       What groups might disagree and why?
 
-
       Broader Context
 
       What historical, cultural, or systemic factors are overlooked?
       How might this issue look different in other contexts or time periods?
       What long-term implications are unconsidered?
-
-
 
       Response Guidelines
 
@@ -134,6 +128,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
           text: "Error: Could not get counter view."
         });
       });
+
     });
   }
 });

@@ -28,6 +28,9 @@
   padding: 10px;
   overflow-y: auto;
   height: calc(100% - 40px);
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .counter-view-sidebar-toggle {

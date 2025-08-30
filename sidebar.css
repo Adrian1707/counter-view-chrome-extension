@@ -1,0 +1,35 @@
+.counter-view-sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ccc;
+  z-index: 9999;
+  transition: height 0.3s;
+  height: 25vh; /* Default height */
+  font-size: 16px;
+}
+
+.counter-view-sidebar.collapsed {
+  height: 40px; /* Collapsed height */
+}
+
+.counter-view-sidebar-header {
+  padding: 10px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.counter-view-sidebar-content {
+  padding: 10px;
+  overflow-y: auto;
+  height: calc(100% - 40px);
+}
+
+.counter-view-sidebar-toggle {
+  cursor: pointer;
+}

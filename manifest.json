@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Counter View",
+  "version": "1.0",
+  "description": "Get a counter view of an article using an LLM.",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://api.openai.com/"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidebar.css",
+        "showdown.min.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

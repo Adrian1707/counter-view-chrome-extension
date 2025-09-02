@@ -55,7 +55,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
               // Just show the extracted content for preview
               chrome.tabs.sendMessage(tab.id, {
                 type: "show-counter-view",
-                text: `**Extracted Content Preview (${extractedText.length} characters):**\n\n${extractedText.substring(0, 2000)}${extractedText.length > 2000 ? '\n\n...(truncated)' : ''}`
+                text: `**Extracted Content Preview (${extractedText.length} characters):**\n\n${extractedText.substring(0, 20000)}${extractedText.length > 20000 ? '\n\n...(truncated)' : ''}`
               });
             } else {
               // Process with LLM
@@ -79,7 +79,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
                 if (info.menuItemId === "preview-extraction") {
                   chrome.tabs.sendMessage(tab.id, {
                     type: "show-counter-view",
-                    text: `**Extracted Content Preview (${fallbackText.length} characters - fallback method):**\n\n${fallbackText.substring(0, 2000)}${fallbackText.length > 2000 ? '\n\n...(truncated)' : ''}`
+                    text: `**Extracted Content Preview (${fallbackText.length} characters - fallback method):**\n\n${fallbackText.substring(0, 200000)}${fallbackText.length > 200000 ? '\n\n...(truncated)' : ''}`
                   });
                 } else {
                   processWithLLM(fallbackText, tab.id);
@@ -234,12 +234,26 @@ function isLikelyNavigation(text) {
   return navPatterns.some(pattern => pattern.test(text.trim()));
 }
 
-function processWithLLM(content, tabId) {
-  const apiKey = "";
+async function processWithLLM(content, tabId) {
+  // Retrieve API key from chrome.storage.sync
+  const result = await chrome.storage.sync.get(['openaiApiKey']);
+  const apiKey = result.openaiApiKey;
+
+  if (!apiKey) {
+    console.error("API Key not set. Please set it in the extension options.");
+    chrome.tabs.sendMessage(tabId, {
+      type: "show-counter-view",
+      text: "Error: OpenAI API Key is not set. Please go to extension options to set it."
+    });
+    return;
+  }
+  
   const apiUrl = "https://api.openai.com/v1/chat/completions";
 
   const systemPrompt = `
   You are a skilled critical thinker and devil's advocate whose primary role is to provide thoughtful counterpoints and alternative perspectives to any text or article presented to you. Your goal is to help users think more deeply by exposing blind spots, biases, and unexplored angles in the source material.
+  You will be provided with extracted text from an article, and some of this text might not be article content but just text scraped from the webpage. Ignore this and just focus on the article contents.
+
   Core Responsibilities
   Identify and analyze:
 

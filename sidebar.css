@@ -7,8 +7,17 @@
   border-top: 1px solid #ccc;
   z-index: 9999;
   transition: height 0.3s;
-  height: 25vh; /* Default height */
+  height: 33vh; /* Increased to 1/3 of viewport height */
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dark theme styles */
+.counter-view-sidebar.dark-theme {
+  background-color: #2d2d2d;
+  border-top: 1px solid #555;
+  color: #f0f0f0;
 }
 
 .counter-view-sidebar.collapsed {
@@ -22,17 +31,86 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0; /* Prevent header from shrinking */
+  height: 40px; /* Fixed header height */
+  box-sizing: border-box;
+}
+
+/* Dark theme header */
+.counter-view-sidebar.dark-theme .counter-view-sidebar-header {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #555;
+  color: #f0f0f0;
 }
 
 .counter-view-sidebar-content {
   padding: 10px;
   overflow-y: auto;
-  height: calc(100% - 40px);
+  flex: 1; /* Take up remaining space */
   word-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
+  box-sizing: border-box;
+  min-height: 0; /* Allow content to shrink below its natural size */
+  line-height: 1.5; /* Better readability */
+  color: #333;
+}
+
+/* Dark theme content */
+.counter-view-sidebar.dark-theme .counter-view-sidebar-content {
+  color: #f0f0f0;
+  background: 
+    /* Shadow at top */ 
+    linear-gradient(#2d2d2d 30%, rgba(45,45,45,0)) 0 0/100% 40px,
+    /* Shadow at bottom */
+    linear-gradient(rgba(45,45,45,0), #2d2d2d 70%) 0 100%/100% 40px,
+    /* Actual background */
+    linear-gradient(#2d2d2d, #2d2d2d);
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll;
+}
+
+/* Custom scrollbar styling for better visibility */
+.counter-view-sidebar-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.counter-view-sidebar-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.counter-view-sidebar-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.counter-view-sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Dark theme scrollbar */
+.counter-view-sidebar.dark-theme .counter-view-sidebar-content::-webkit-scrollbar-track {
+  background: #3d3d3d;
+}
+
+.counter-view-sidebar.dark-theme .counter-view-sidebar-content::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+.counter-view-sidebar.dark-theme .counter-view-sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: #888;
 }
 
 .counter-view-sidebar-toggle {
   cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  user-select: none;
+}
+
+/* Improve header styling */
+.counter-view-sidebar-header {
+  border-bottom: 1px solid #ccc;
+  font-weight: 600;
 }
